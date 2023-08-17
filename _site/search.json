@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "My Brand New Blog",
+    "section": "",
+    "text": "news\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nAug 17, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nAug 14, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/hot-ones-post/index.html",
+    "href": "posts/hot-ones-post/index.html",
+    "title": "New Insight",
+    "section": "",
+    "text": "library(tidyverse)\nsauces <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-08-08/sauces.csv')"
+  },
+  {
+    "objectID": "posts/hot-ones-post/index.html#has-the-average-scoville-pain-of-hot-sauces-grown-with-the-seasons",
+    "href": "posts/hot-ones-post/index.html#has-the-average-scoville-pain-of-hot-sauces-grown-with-the-seasons",
+    "title": "New Insight",
+    "section": "Has the average scoville (pain) of hot sauces grown with the seasons?",
+    "text": "Has the average scoville (pain) of hot sauces grown with the seasons?\nIt seems the producers kicked things up in season 5 and then brought things down a notch.\n\nsauces %>% \n  group_by(season) %>% \n  summarise(meany_scoville = mean(scoville, na.rm= TRUE)) %>% \n  ggplot(aes(x = factor(season), y = meany_scoville)) +\n  geom_point() +\n  labs(x = \"Hot ones season\", y = \"Average scoville of sauces introduced in season\")+\n  theme_minimal()"
+  },
+  {
+    "objectID": "posts/hot-ones-post/index.html#does-the-word-hot-necessarily-mean-that-the-sauce-is-hot",
+    "href": "posts/hot-ones-post/index.html#does-the-word-hot-necessarily-mean-that-the-sauce-is-hot",
+    "title": "New Insight",
+    "section": "Does the word hot necessarily mean that the sauce is hot?",
+    "text": "Does the word hot necessarily mean that the sauce is hot?\nYes. Very.\n\nsauces %>% \n  mutate(has_hot = ifelse(str_detect(tolower(sauce_name), \"hot\"), \"Yes\", \"No\")) %>% \n  group_by(has_hot) %>% \n  summarise(meany_scoville = mean(scoville, na.rm= TRUE)) %>% \n  ggplot(aes(x = has_hot, y = meany_scoville)) +\n  geom_bar(stat = \"identity\") +\n  labs(x = \"Has the word hot in it?\", y = \"Average scoville of sauces introduced in season\")+\n  theme_minimal()"
+  }
+]

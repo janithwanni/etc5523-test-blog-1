@@ -1,0 +1,43 @@
+---
+title: "New Insight"
+format: html
+editor: visual
+---
+
+## Hot One's sauces
+
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+sauces <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-08-08/sauces.csv')
+```
+
+## Has the average scoville (pain) of hot sauces grown with the seasons?
+
+It seems the producers kicked things up in season 5 and then brought things down a notch.
+
+```{r}
+sauces %>% 
+  group_by(season) %>% 
+  summarise(meany_scoville = mean(scoville, na.rm= TRUE)) %>% 
+  ggplot(aes(x = factor(season), y = meany_scoville)) +
+  geom_point() +
+  labs(x = "Hot ones season", y = "Average scoville of sauces introduced in season")+
+  theme_minimal()
+```
+
+## Does the word hot necessarily mean that the sauce is hot?
+
+Yes. Very.
+
+```{r}
+sauces %>% 
+  mutate(has_hot = ifelse(str_detect(tolower(sauce_name), "hot"), "Yes", "No")) %>% 
+  group_by(has_hot) %>% 
+  summarise(meany_scoville = mean(scoville, na.rm= TRUE)) %>% 
+  ggplot(aes(x = has_hot, y = meany_scoville)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Has the word hot in it?", y = "Average scoville of sauces introduced in season")+
+  theme_minimal()
+```

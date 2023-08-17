@@ -1,0 +1,16 @@
+{
+  "hash": "2b9c26dc694b92a7825eeadd60f22ec3",
+  "result": {
+    "markdown": "---\ntitle: \"New Insight\"\nformat: html\neditor: visual\n---\n\n\n## Hot One's sauces\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nsauces <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-08-08/sauces.csv')\n```\n:::\n\n\n## Has the average scoville (pain) of hot sauces grown with the seasons?\n\nIt seems the producers kicked things up in season 5 and then brought things down a notch.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsauces %>% \n  group_by(season) %>% \n  summarise(meany_scoville = mean(scoville, na.rm= TRUE)) %>% \n  ggplot(aes(x = factor(season), y = meany_scoville)) +\n  geom_point() +\n  labs(x = \"Hot ones season\", y = \"Average scoville of sauces introduced in season\")+\n  theme_minimal()\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\n## Does the word hot necessarily mean that the sauce is hot?\n\nYes. Very.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsauces %>% \n  mutate(has_hot = ifelse(str_detect(tolower(sauce_name), \"hot\"), \"Yes\", \"No\")) %>% \n  group_by(has_hot) %>% \n  summarise(meany_scoville = mean(scoville, na.rm= TRUE)) %>% \n  ggplot(aes(x = has_hot, y = meany_scoville)) +\n  geom_bar(stat = \"identity\") +\n  labs(x = \"Has the word hot in it?\", y = \"Average scoville of sauces introduced in season\")+\n  theme_minimal()\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
